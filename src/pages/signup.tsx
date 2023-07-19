@@ -6,7 +6,7 @@ import Link from "next/link";
 
 type Props = {};
 
-const signup = (props: Props) => {
+const SignUp = (props: Props) => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [signUpEmail, setSignUpEmail] = useState<string>("");
@@ -97,4 +97,4 @@ const signup = (props: Props) => {
   );
 };
 
-export default signup;
+export default SignUp;

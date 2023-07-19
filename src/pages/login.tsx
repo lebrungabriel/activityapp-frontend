@@ -3,12 +3,16 @@ import Navbar from "@/components/Navbar";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { addTokenToStore } from "@/reducers/user";
 
 type Props = {};
 
-const login = (props: Props) => {
+const Login = (props: Props) => {
   const [loginEmail, setLoginEmail] = useState<string>("");
   const [loginPassword, setLoginPassword] = useState<string>("");
+
+  const dispatch = useDispatch();
 
   const handleLogin = () => {
     fetch("http://localhost:3000/auth/login", {
@@ -22,8 +26,11 @@ const login = (props: Props) => {
       .then((data) => {
         // Handle the response data from the server
         if (data) {
-          console.log(data);
+          console.log(data.token);
+          dispatch(addTokenToStore(data.token));
         }
+        setLoginEmail("");
+        setLoginPassword("");
       });
   };
 
@@ -66,4 +73,4 @@ const login = (props: Props) => {
   );
 };
 
-export default login;
+export default Login;

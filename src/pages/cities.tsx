@@ -2,8 +2,8 @@ import React from "react";
 
 type Props = {};
 
-const cities = (props: Props) => {
-  return <div>cities</div>;
+const Cities = (props: Props) => {
+  return <div>Cities</div>;
 };
 
-export default cities;
+export default Cities;

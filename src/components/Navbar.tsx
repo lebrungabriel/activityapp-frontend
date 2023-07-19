@@ -17,7 +17,7 @@ const Navbar = (props: Props) => {
           Explorer les activités
         </Link>
         <Link href="/cities" className="text-white font-normal">
-          Autour de moi
+          Explorer les villes
         </Link>
         {user.token && (
           <Link href="/" className="text-white font-normal">

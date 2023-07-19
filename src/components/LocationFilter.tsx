@@ -6,7 +6,7 @@ type Props = {
   onSearch: (city: string, price: string) => void;
 };
 
-const Filter = ({ onSearch }: Props) => {
+const LocationFilter = ({ onSearch }: Props) => {
   const [searchCity, setSearchCity] = useState<string>("");
   const [searchPrice, setSearchPrice] = useState<string>("");
 
@@ -43,4 +43,4 @@ const Filter = ({ onSearch }: Props) => {
   );
 };
 
-export default Filter;
+export default LocationFilter;

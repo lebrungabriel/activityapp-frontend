@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Item from "@/components/Item";
-import Filter from "@/components/Filter";
+import LocationFilter from "@/components/LocationFilter";
 import Link from "next/link";
 import { BsChevronLeft } from "react-icons/bs";
 
@@ -81,7 +81,7 @@ const ActivityContainer = ({ category }: ActivityContainerProps) => {
       </Link>
 
       <div className="w-screen flex justify-around items-center">
-        <Filter onSearch={handleSearch} />
+        <LocationFilter onSearch={handleSearch} />
         <div className="sm:w-8/12 lg:w-6/12 lg:h-[550px] lg:overflow-scroll grid grid-cols-1">
           <p>Résultats : {filteredActivities.length}</p>
           {filteredActivities.length === 0 ? (

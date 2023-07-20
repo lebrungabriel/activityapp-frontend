@@ -47,7 +47,7 @@ const ActivityContainer = ({ category }: ActivityContainerProps) => {
   };
 
   const handleRemoveFilter = () => {
-    setFilteredActivities([]);
+    setFilteredActivities(activities);
   };
 
   let imageUrl: string;

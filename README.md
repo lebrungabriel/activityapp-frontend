@@ -1,38 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ActivityApp Frontend
+
+ActivityApp Frontend is the client-side component of the ActivityApp web application. It is built using Next.js and React, and utilizes TypeScript for static typing, Tailwind CSS for styling, and Chakra UI for UI components.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+To run the frontend locally, you need to have the following installed on your system:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Node.js (https://nodejs.org)
+- Yarn (https://yarnpkg.com)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Installation
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Clone the repository from GitHub: git clone https://github.com/your-username/ActivityApp-frontend.git
+cd ActivityApp-frontend
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Install dependencies: yarn install
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Configuration
 
-## Learn More
+The frontend does not require specific configuration, as it communicates with the backend API running on port 3000 by default.
 
-To learn more about Next.js, take a look at the following resources:
+If your backend is running on a different port, you can update the API base URL in the src/api/index.ts file.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Running the Development Server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+To start the development server and run the frontend locally, use the following command: yarn dev
 
-## Deploy on Vercel
+The frontend will run on port 3001 by default. You can change the port by updating the next.config.js file.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Next.js: A React framework for building server-rendered applications with easy development and production setups.
+
+- React: A popular JavaScript library for building user interfaces.
+
+- TypeScript: A superset of JavaScript that provides static typing and enhances code quality.
+
+- Tailwind CSS: A utility-first CSS framework for rapidly building custom user interfaces.
+
+- Chakra UI: A simple, modular, and accessible component library for React applications.
+
+- Yarn: A package manager for managing dependencies and running scripts in the project.
+
+### License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+### Contributing
+
+Contributions are welcome! Feel free to open issues or pull requests for bug fixes, enhancements, or new features.

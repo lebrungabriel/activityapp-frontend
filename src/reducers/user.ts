@@ -3,11 +3,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type UserState = {
   value: {
     token: string | null;
+    userId: string | null;
   };
 };
 
 const initialState: UserState = {
-  value: { token: null },
+  value: { token: null, userId: null },
 };
 
 export const userSlice = createSlice({
@@ -20,8 +21,12 @@ export const userSlice = createSlice({
     removeTokenFromStore: (state: UserState) => {
       state.value.token = null;
     },
+    addUserIdToStore: (state: UserState, action: PayloadAction<string>) => {
+      state.value.userId = action.payload;
+    },
   },
 });
 
-export const { addTokenToStore, removeTokenFromStore } = userSlice.actions;
+export const { addTokenToStore, removeTokenFromStore, addUserIdToStore } =
+  userSlice.actions;
 export default userSlice.reducer;

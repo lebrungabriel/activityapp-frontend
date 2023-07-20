@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Navbar from "@/components/Navbar";
+import { signUp } from "@/api/auth";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Link from "next/link";
@@ -11,37 +11,40 @@ const SignUp = (props: Props) => {
   const [lastName, setLastName] = useState<string>("");
   const [signUpEmail, setSignUpEmail] = useState<string>("");
   const [signUpPassword, setSignUpPassword] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
 
   const handleSignUp = () => {
-    fetch("http://localhost:3000/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        email: signUpEmail,
-        password: signUpPassword,
-      }),
-    })
-      .then((response) => response.json())
+    const signUpData = {
+      firstName: firstName,
+      lastName: lastName,
+      email: signUpEmail,
+      password: signUpPassword,
+    };
+
+    signUp(signUpData)
       .then((data) => {
         // Handle the response data from the server
         if (data) {
           console.log(data);
+          // Redirect the user to the login page after successful signup
+          // You can replace "/login" with the appropriate URL for your login page
+          window.location.href = "/login";
         }
         setFirstName("");
         setLastName("");
         setSignUpEmail("");
         setSignUpPassword("");
+        setError(null);
+      })
+      .catch((error) => {
+        // Handle errors from the server
+        setError("Error occurred during signup. Please try again later.");
       });
   };
 
   return (
     <>
-      <Navbar />
-      <div className="w-full h-[calc(100vh-80px)] flex flex-col justify-evenly items-center">
+      <div className="w-full h-screen flex flex-col justify-evenly items-center">
         <h1 className="text-2xl font-bold">Inscription</h1>
         <div className="w-[90%] lg:w-4/12 flex flex-col bg-white shadow py-10 px-6">
           <Input
@@ -84,7 +87,7 @@ const SignUp = (props: Props) => {
             onChange={(e) => setSignUpPassword(e.target.value)}
           />
 
-          <Button text="Me connecter" onClick={() => handleSignUp()} />
+          <Button text="M'inscrire" onClick={() => handleSignUp()} />
           <p className="mt-3">
             Vous avez déjà un compte ?{" "}
             <Link href="/login" className="text-indigo-400 font-semibold">

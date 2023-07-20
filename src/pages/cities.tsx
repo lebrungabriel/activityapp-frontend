@@ -25,8 +25,7 @@ const Cities = ({ city }: Props) => {
 
   return (
     <>
-      <Navbar />
-      <div className="w-full grid grid-cols-3 justify-items-center gap-y-10 mt-10">
+      <div className="w-full grid grid-cols-3 justify-items-center gap-y-10 py-20">
         {cities.map((city) => (
           <Link
             key={city}

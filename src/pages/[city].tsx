@@ -1,20 +1,15 @@
 import { useRouter } from "next/router";
+import { getImageUrl } from "@/utils/activityUtils";
 import { useEffect, useState } from "react";
+import { ActivityType } from "@/types/ActivityType";
 import Item from "@/components/Item";
-import Navbar from "../components/Navbar";
 import ActivityFilter from "@/components/ActivityFilter";
 
-interface Activity {
-  category: string;
-  description: string;
-  id: string;
-  price: number;
-  location: string;
-}
-
 const City = () => {
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [filteredActivities, setFilteredActivities] = useState<Activity[]>([]);
+  const [activities, setActivities] = useState<ActivityType[]>([]);
+  const [filteredActivities, setFilteredActivities] = useState<ActivityType[]>(
+    []
+  );
   const router = useRouter();
   const { city } = router.query;
   const capitalizeCity = Array.isArray(city) ? city[0] : city;
@@ -54,34 +49,28 @@ const City = () => {
     setFilteredActivities(filteredData);
   };
 
-  // Function to get the image URL based on category
-  const getImageUrl = (category: string) => {
-    if (category === "Randonnée") {
-      return "https://conseilsante.cliniquecmi.com/wp-content/uploads/2022/05/bienfait-randonnee-conseil-sante.jpg";
-    } else if (category === "Yoga") {
-      return "https://cdn.generationvoyage.fr/2019/11/yoga-france-meilleurs-endroits-de-retraite.jpg";
-    } else if (category === "Vélo") {
-      return "https://www.caravelis.com/xml/oi/TFO415621471835/TFO415621471835-17a/medias/jpg/photo-vttae-1_w2000.jpg";
-    } else if (category === "Trail") {
-      return "https://magazine.sportihome.com/wp-content/uploads/2019/05/Trail-autour-de-Paris-Ile-de-France.jpg";
-    } else if (category === "Surf") {
-      return "https://cdn.checkyeti.com/images/original/Surfing+%28c%29+Shutterstock.jpg";
-    } else if (category === "Escalade") {
-      return "https://ecolosport.fr/wp-content/uploads/2020/07/Escalade.jpg";
-    } else {
-      // Default image URL if category not found
-      return "";
-    }
+  // Function to remove filters and show all activities
+  const handleRemoveFilter = () => {
+    setFilteredActivities([]);
   };
 
   return (
     <>
-      <Navbar />
-      <h1>Bienvenue à {capitalizedWord}</h1>
+      <div className="w-full flex items-center justify-between px-10 mt-4">
+        <h1 className="text-xl font-semibold">Bienvenue à {capitalizedWord}</h1>
+        <p className="text-sm font-bold text-zinc-800">
+          Résultats : {activitiesByCity.length}
+        </p>
+        <button
+          className="font-semibold text-zinc-700 hover:text-black"
+          onClick={handleRemoveFilter}
+        >
+          Effacer les filtres
+        </button>
+      </div>
       <div className="w-screen flex justify-around items-center">
         <ActivityFilter onSearch={handleSearch} />
-        <div className="sm:w-8/12 lg:w-6/12 lg:h-[550px] lg:overflow-scroll grid grid-cols-1">
-          <p>Résultats : {activitiesByCity.length}</p>
+        <div className="sm:w-8/12 lg:w-6/12 lg:h-[480px] lg:overflow-scroll grid grid-cols-1 items-start">
           {activitiesByCity.length === 0 ? (
             <p className="text-2xl font-semibold">
               Oups, il semble qu'aucune activité ne soit disponible...

@@ -1,11 +1,9 @@
-import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
-import Link from "next/link";
-
 import { useDispatch, useSelector } from "react-redux";
 import { removeTokenFromStore, UserState } from "@/reducers/user";
+import Link from "next/link";
+import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
 
 import { FaUserCircle } from "react-icons/fa";
-import Image from "next/image";
 
 type Props = {};
 
@@ -29,7 +27,7 @@ function Avatar({}: Props) {
                 className="w-[45px] h-[45px] object-cover rounded-full bg-white p-0.5"
               />
             ) : (
-              <FaUserCircle className="text-5xl text-white" />
+              <FaUserCircle className="text-4xl text-white" />
             )}
           </MenuButton>
           <MenuList>

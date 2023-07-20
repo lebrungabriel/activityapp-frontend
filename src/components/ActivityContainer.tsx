@@ -1,32 +1,30 @@
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import Link from "next/link";
+import { ActivityType } from "@/types/ActivityType";
+import { fetchActivities } from "@/api/activities";
 import Item from "@/components/Item";
 import LocationFilter from "@/components/LocationFilter";
-import Link from "next/link";
 import { BsChevronLeft } from "react-icons/bs";
-
-interface Activity {
-  category: string;
-  description: string;
-  id: string;
-  price: number;
-  location: string;
-}
 
 interface ActivityContainerProps {
   category: string;
 }
 
 const ActivityContainer = ({ category }: ActivityContainerProps) => {
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [filteredActivities, setFilteredActivities] = useState<Activity[]>([]);
+  const [activities, setActivities] = useState<ActivityType[]>([]);
+  const [filteredActivities, setFilteredActivities] = useState<ActivityType[]>(
+    []
+  );
 
   useEffect(() => {
-    fetch(`http://localhost:3000/activity?category=${category}`)
-      .then((response) => response.json())
+    fetchActivities(category)
       .then((data) => {
         setActivities(data);
         setFilteredActivities(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching activities:", error);
+        // Handle error if needed
       });
   }, [category]);
 
@@ -46,6 +44,10 @@ const ActivityContainer = ({ category }: ActivityContainerProps) => {
     }
 
     setFilteredActivities(filteredData);
+  };
+
+  const handleRemoveFilter = () => {
+    setFilteredActivities([]);
   };
 
   let imageUrl: string;
@@ -71,19 +73,26 @@ const ActivityContainer = ({ category }: ActivityContainerProps) => {
 
   return (
     <>
-      <Navbar />
-      <Link
-        href="/"
-        className="text-black font-semibold my-4 ml-4 flex items-center"
-      >
-        <BsChevronLeft className="mr-3" />
-        {category}
-      </Link>
+      <div className="w-screen flex items-center justify-between px-10 mt-4">
+        <Link
+          href="/"
+          className="text-black font-semibold my-4 ml-4 flex items-center"
+        >
+          <BsChevronLeft className="mr-3" />
+          {category}
+        </Link>
+        <p>Résultats : {filteredActivities.length}</p>
+        <button
+          className="font-semibold text-zinc-700 hover:text-black"
+          onClick={handleRemoveFilter}
+        >
+          Effacer les filtres
+        </button>
+      </div>
 
       <div className="w-screen flex justify-around items-center">
         <LocationFilter onSearch={handleSearch} />
-        <div className="sm:w-8/12 lg:w-6/12 lg:h-[550px] lg:overflow-scroll grid grid-cols-1">
-          <p>Résultats : {filteredActivities.length}</p>
+        <div className="sm:w-8/12 lg:w-6/12 lg:h-[480px] lg:overflow-scroll grid grid-cols-1">
           {filteredActivities.length === 0 ? (
             <p className="text-2xl font-semibold">
               Oups il semble qu'aucune activité de {category.toLowerCase()} ne

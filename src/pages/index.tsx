@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import Navbar from "@/components/Navbar";
 import Card from "@/components/Card";
 import { ACTIVITIES } from "../../data/activities";
 
@@ -8,7 +7,6 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <main className={`flex flex-col ${inter.className}`}>
-      <Navbar />
       <h1 className="text-black font-semibold my-4 ml-4">
         Découvrez des activités
       </h1>

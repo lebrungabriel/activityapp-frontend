@@ -1,10 +1,11 @@
 import { useState } from "react";
-import Navbar from "@/components/Navbar";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { addTokenToStore, addUserIdToStore } from "@/reducers/user";
+import { login } from "@/api/auth";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { addTokenToStore } from "@/reducers/user";
 
 type Props = {};
 
@@ -13,30 +14,28 @@ const Login = (props: Props) => {
   const [loginPassword, setLoginPassword] = useState<string>("");
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleLogin = () => {
-    fetch("http://localhost:3000/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: loginEmail, password: loginPassword }),
-    })
-      .then((response) => response.json())
+    login(loginEmail, loginPassword)
       .then((data) => {
         // Handle the response data from the server
         if (data) {
-          console.log(data.token);
           dispatch(addTokenToStore(data.token));
+          dispatch(addUserIdToStore(data.userId));
         }
+        router.push("/");
         setLoginEmail("");
         setLoginPassword("");
+      })
+      .catch((error) => {
+        // Handle login error (e.g., display error message)
+        console.error("Error occurred during login:", error);
       });
   };
 
   return (
     <>
-      <Navbar />
       <div className="w-full h-[calc(100vh-80px)] flex flex-col justify-evenly items-center">
         <h1 className="text-2xl font-bold">Connexion</h1>
         <div className="w-[90%] lg:w-4/12 flex flex-col bg-white shadow py-10 px-6">

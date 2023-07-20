@@ -5,6 +5,10 @@ import { ActivityType } from "@/types/ActivityType";
 import Item from "@/components/Item";
 import ActivityFilter from "@/components/ActivityFilter";
 
+const categories = ["Randonnée", "Yoga", "Vélo", "Trail", "Surf", "Escalade"];
+
+const category = categories.map((category) => category);
+
 const City = () => {
   const [activities, setActivities] = useState<ActivityType[]>([]);
   const [filteredActivities, setFilteredActivities] = useState<ActivityType[]>(
@@ -41,8 +45,8 @@ const City = () => {
     }
 
     if (price) {
-      filteredData = filteredData.filter((act) =>
-        act.price.toString().includes(price)
+      filteredData = filteredData.filter((activity) =>
+        activity.price.toString().includes(price)
       );
     }
 
@@ -59,7 +63,10 @@ const City = () => {
       <div className="w-full flex items-center justify-between px-10 mt-4">
         <h1 className="text-xl font-semibold">Bienvenue à {capitalizedWord}</h1>
         <p className="text-sm font-bold text-zinc-800">
-          Résultats : {activitiesByCity.length}
+          Résultats :{" "}
+          {filteredActivities.length > 0
+            ? filteredActivities.length
+            : activitiesByCity.length}
         </p>
         <button
           className="font-semibold text-zinc-700 hover:text-black"
@@ -68,8 +75,9 @@ const City = () => {
           Effacer les filtres
         </button>
       </div>
+
       <div className="w-screen flex justify-around items-center">
-        <ActivityFilter onSearch={handleSearch} />
+        <ActivityFilter onSearch={handleSearch} categories={category} />
         <div className="sm:w-8/12 lg:w-6/12 lg:h-[480px] lg:overflow-scroll grid grid-cols-1 items-start">
           {activitiesByCity.length === 0 ? (
             <p className="text-2xl font-semibold">

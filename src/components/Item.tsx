@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { MdPlace } from "react-icons/md";
+import DetailActivityModal from "./DetailActivityModal";
 
 type Props = {
   category: string;
@@ -31,9 +32,12 @@ const Item = (props: Props) => {
         {/* <p className="text-gray-700 font-light px-3">{props.description}</p> */}
         <p className="text-lg font-bold">{props.price}.00 €</p>
       </div>
-      <button className="px-10 py-2 bg-indigo-400 text-white font-medium rounded-full shadow">
-        Détails
-      </button>
+      <DetailActivityModal
+        category={props.category}
+        description={props.description}
+        price={props.price}
+        location={props.location}
+      />
     </div>
   );
 };

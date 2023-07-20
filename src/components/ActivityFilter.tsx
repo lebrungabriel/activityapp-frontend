@@ -1,12 +1,14 @@
 import { useState } from "react";
 import Button from "./Button";
+import Dropdown from "./Dropdown";
 import Input from "./Input";
 
 type Props = {
+  categories: string[];
   onSearch: (activity: string, price: string) => void;
 };
 
-const ActivityFilter = ({ onSearch }: Props) => {
+const ActivityFilter = ({ categories, onSearch }: Props) => {
   const [searchActivity, setSearchActivity] = useState<string>("");
   const [searchPrice, setSearchPrice] = useState<string>("");
 
@@ -18,14 +20,16 @@ const ActivityFilter = ({ onSearch }: Props) => {
 
   return (
     <div className="bg-white shadow w-80 p-8">
-      <Input
-        htmlFor="activity"
-        id="activity"
+      <Dropdown
+        htmlFor="search"
+        id="price"
         type="text"
-        placeholder="Rechercher une activité"
+        categories={categories}
         text="Activité"
         value={searchActivity}
-        onChange={(e) => setSearchActivity(e.target.value)}
+        onChange={(e) => {
+          setSearchActivity(e.target.value);
+        }}
       />
       <Input
         htmlFor="search"

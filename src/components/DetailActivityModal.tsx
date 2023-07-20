@@ -11,10 +11,10 @@ import {
 import { useDisclosure } from "@chakra-ui/hooks";
 
 type Props = {
-  category: string;
-  description: string;
-  price: number;
-  location: string;
+  category: string; // The category of the activity
+  description: string; // The description of the activity
+  price: number; // The price of the activity
+  location: string; // The location of the activity
 };
 
 function DetailActivityModal({
@@ -23,19 +23,27 @@ function DetailActivityModal({
   price,
   location,
 }: Props) {
+  // Chakra UI's `useDisclosure` hook for managing the modal state
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
+      {/* Button to open the modal */}
       <Button onClick={onOpen}>Détails</Button>
 
+      {/* Modal to display the activity details */}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
+          {/* Modal header */}
           <ModalHeader>Détail de l'activité</ModalHeader>
+
+          {/* Modal close button */}
           <ModalCloseButton />
+
           <ModalBody>
             <div>
+              {/* Display the category, description, location, and price of the activity */}
               <p>{category}</p>
               <p>{description}</p>
               <p>{location}</p>
@@ -43,7 +51,9 @@ function DetailActivityModal({
             </div>
           </ModalBody>
 
+          {/* Modal footer */}
           <ModalFooter>
+            {/* Button to close the modal */}
             <button
               onClick={onClose}
               className="h-10 w-[100px] text-indigo-400 font-medium rounded-sm mr-3"

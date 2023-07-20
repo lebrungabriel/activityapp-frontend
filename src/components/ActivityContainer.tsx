@@ -11,11 +11,13 @@ interface ActivityContainerProps {
 }
 
 const ActivityContainer = ({ category }: ActivityContainerProps) => {
+  // State to hold the list of all activities and the filtered activities
   const [activities, setActivities] = useState<ActivityType[]>([]);
   const [filteredActivities, setFilteredActivities] = useState<ActivityType[]>(
     []
   );
 
+  // Fetch activities based on the selected category when the component mounts or when the category changes
   useEffect(() => {
     fetchActivities(category)
       .then((data) => {
@@ -28,16 +30,19 @@ const ActivityContainer = ({ category }: ActivityContainerProps) => {
       });
   }, [category]);
 
+  // Function to handle filtering activities based on city and price
   const handleSearch = (city: string, price: string) => {
     let filteredData = activities;
 
     if (city) {
+      // Filter activities by city (case-insensitive search)
       filteredData = filteredData.filter((activity) =>
         activity.location.toLowerCase().includes(city.toLowerCase())
       );
     }
 
     if (price) {
+      // Filter activities by price (exact match)
       filteredData = filteredData.filter((activity) =>
         activity.price.toString().includes(price)
       );
@@ -46,12 +51,13 @@ const ActivityContainer = ({ category }: ActivityContainerProps) => {
     setFilteredActivities(filteredData);
   };
 
+  // Function to reset the filters and show all activities again
   const handleRemoveFilter = () => {
     setFilteredActivities(activities);
   };
 
+  // Determine the image URL based on the selected category
   let imageUrl: string;
-
   if (category === "Randonnée") {
     imageUrl =
       "https://conseilsante.cliniquecmi.com/wp-content/uploads/2022/05/bienfait-randonnee-conseil-sante.jpg";
@@ -73,6 +79,7 @@ const ActivityContainer = ({ category }: ActivityContainerProps) => {
 
   return (
     <>
+      {/* Header section */}
       <div className="w-screen flex items-center justify-between px-10 mt-4">
         <Link
           href="/"
@@ -90,15 +97,21 @@ const ActivityContainer = ({ category }: ActivityContainerProps) => {
         </button>
       </div>
 
+      {/* Main content section */}
       <div className="w-screen flex justify-around items-center">
+        {/* Location filter section */}
         <LocationFilter onSearch={handleSearch} />
+
+        {/* Activity items */}
         <div className="sm:w-8/12 lg:w-6/12 lg:h-[480px] lg:overflow-scroll grid grid-cols-1">
           {filteredActivities.length === 0 ? (
+            // Display a message if no activities are available for the selected category and filters
             <p className="text-2xl font-semibold">
               Oups il semble qu'aucune activité de {category.toLowerCase()} ne
               soit disponible...
             </p>
           ) : (
+            // Display the filtered activities
             <>
               {filteredActivities.map((obj) => (
                 <Item

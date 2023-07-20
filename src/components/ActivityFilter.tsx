@@ -9,17 +9,23 @@ type Props = {
 };
 
 const ActivityFilter = ({ categories, onSearch }: Props) => {
+  // State to manage the search input values for activity and price
   const [searchActivity, setSearchActivity] = useState<string>("");
   const [searchPrice, setSearchPrice] = useState<string>("");
 
+  // Function to handle the search button click
   const searchHandler = () => {
+    // Call the provided onSearch function with the current search values
     onSearch(searchActivity, searchPrice);
-    setSearchActivity(""); // Reset searchCity to clear the input field
-    setSearchPrice(""); // Reset searchPrice to clear the input field
+
+    // Reset searchActivity and searchPrice to clear the input fields after search
+    setSearchActivity("");
+    setSearchPrice("");
   };
 
   return (
     <div className="bg-white shadow w-80 p-8">
+      {/* Dropdown for selecting activity category */}
       <Dropdown
         htmlFor="search"
         id="price"
@@ -31,6 +37,8 @@ const ActivityFilter = ({ categories, onSearch }: Props) => {
           setSearchActivity(e.target.value);
         }}
       />
+
+      {/* Input field for searching by price */}
       <Input
         htmlFor="search"
         id="price"
@@ -42,6 +50,8 @@ const ActivityFilter = ({ categories, onSearch }: Props) => {
           setSearchPrice(e.target.value);
         }}
       />
+
+      {/* Button to trigger the search */}
       <Button text="Rechercher" onClick={searchHandler} />
     </div>
   );

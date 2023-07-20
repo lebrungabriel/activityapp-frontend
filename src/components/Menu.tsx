@@ -52,9 +52,12 @@ const Menu = (props: Props) => {
               >
                 Me connecter
               </Link>
-              <p className="w-10/12 py-3 border border-indigo-400 flex justify-center items-center rounded-xl text-indigo-400">
+              <Link
+                href="/signup"
+                className="w-10/12 py-3 border border-indigo-400 flex justify-center items-center rounded-xl text-indigo-400"
+              >
                 M'inscrire
-              </p>
+              </Link>
             </div>
           </DrawerBody>
         </DrawerContent>

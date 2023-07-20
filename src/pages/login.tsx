@@ -10,21 +10,30 @@ import Link from "next/link";
 type Props = {};
 
 const Login = (props: Props) => {
+  // State variables for login form inputs
   const [loginEmail, setLoginEmail] = useState<string>("");
   const [loginPassword, setLoginPassword] = useState<string>("");
 
+  // Get access to Redux store dispatch function
   const dispatch = useDispatch();
+
+  // Get access to Next.js router object for navigation
   const router = useRouter();
 
+  // Function to handle user login
   const handleLogin = () => {
+    // Call the login function from the API to send user credentials and get a response
     login(loginEmail, loginPassword)
       .then((data) => {
         // Handle the response data from the server
         if (data) {
+          // If login is successful, add the user token and ID to the Redux store
           dispatch(addTokenToStore(data.token));
           dispatch(addUserIdToStore(data.userId));
         }
+        // Navigate to the home page after successful login
         router.push("/");
+        // Reset the login form inputs after login attempt
         setLoginEmail("");
         setLoginPassword("");
       })
@@ -37,8 +46,11 @@ const Login = (props: Props) => {
   return (
     <>
       <div className="w-full h-[calc(100vh-80px)] flex flex-col justify-evenly items-center">
+        {/* Page title */}
         <h1 className="text-2xl font-bold">Connexion</h1>
+        {/* Login form container */}
         <div className="w-[90%] lg:w-4/12 flex flex-col bg-white shadow py-10 px-6">
+          {/* Email input field */}
           <Input
             htmlFor="email"
             id="email"
@@ -49,6 +61,7 @@ const Login = (props: Props) => {
             onChange={(e) => setLoginEmail(e.target.value)}
           />
 
+          {/* Password input field */}
           <Input
             htmlFor="password"
             id="password"
@@ -59,7 +72,10 @@ const Login = (props: Props) => {
             onChange={(e) => setLoginPassword(e.target.value)}
           />
 
+          {/* Login button */}
           <Button text="Me connecter" onClick={() => handleLogin()} />
+
+          {/* Link to sign up page */}
           <p className="mt-3">
             Pas encore de compte ?{" "}
             <Link href="/signup" className="text-indigo-400 font-semibold">

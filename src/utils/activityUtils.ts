@@ -1,6 +1,6 @@
-// utils/activityUtils.ts
-
+// Function to get the image URL based on the category
 export const getImageUrl = (category: string): string => {
+  // Check the category and return the corresponding image URL
   if (category === "Randonnée") {
     return "https://conseilsante.cliniquecmi.com/wp-content/uploads/2022/05/bienfait-randonnee-conseil-sante.jpg";
   } else if (category === "Yoga") {
@@ -14,7 +14,8 @@ export const getImageUrl = (category: string): string => {
   } else if (category === "Escalade") {
     return "https://ecolosport.fr/wp-content/uploads/2020/07/Escalade.jpg";
   } else {
-    // Default image URL if category not found
+    // Return an empty string if the category is not recognized
+    // This can be used to handle cases where the category doesn't match any predefined options.
     return "";
   }
 };

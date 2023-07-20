@@ -15,22 +15,26 @@ import { useSelector } from "react-redux";
 import { UserState } from "@/reducers/user";
 
 function AddActivityModal() {
+  // Chakra UI's `useDisclosure` hook for managing the modal state
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  // State variables to store input values for the activity details
   const [category, setCategory] = useState("");
   const [city, setCity] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
 
-  // Retrieve the user token from redux store
+  // Retrieve the user token from the Redux store
   const user = useSelector((state: { user: UserState }) => state.user.value);
 
+  // Function to handle adding a new activity
   const addActivityHandler = async () => {
+    // Prepare the request options for the POST request to add the activity
     const requestOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${user.token}`, // Include the user token in the request headers
       },
       body: JSON.stringify({
         category,
@@ -41,14 +45,17 @@ function AddActivityModal() {
     };
 
     try {
+      // Send the POST request to the server
       const response = await fetch(
         "http://localhost:3000/activity/new",
         requestOptions
       );
+
+      // Check if the request was successful
       if (response.ok) {
         // Activity successfully added
         console.log("Activity added");
-        onClose();
+        onClose(); // Close the modal after adding the activity
       } else {
         // Handle error response
         console.error("Failed to add activity");
@@ -61,8 +68,10 @@ function AddActivityModal() {
 
   return (
     <>
+      {/* Button to open the modal */}
       <Button onClick={onOpen}>Ajouter une activité</Button>
 
+      {/* Modal to add a new activity */}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -70,6 +79,7 @@ function AddActivityModal() {
           <ModalCloseButton />
           <ModalBody>
             <div>
+              {/* Input fields for the activity details */}
               <Input
                 htmlFor="category"
                 id="category"
@@ -110,12 +120,15 @@ function AddActivityModal() {
           </ModalBody>
 
           <ModalFooter>
+            {/* Button to cancel and close the modal */}
             <button
               onClick={onClose}
               className="h-10 w-[100px] text-indigo-400 font-medium rounded-sm mr-3"
             >
               Annuler
             </button>
+
+            {/* Button to add the activity */}
             <button
               onClick={addActivityHandler}
               className="px-10 py-2 bg-indigo-400 text-white font-medium rounded-md shadow"

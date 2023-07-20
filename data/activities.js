@@ -1,3 +1,5 @@
+// An array of activity objects, representing different activities that users can explore.
+// Each object in the array represents a specific activity with properties like `id`, `path`, `type`, `image`, and `description`.
 export const ACTIVITIES = [
   {
     id: "1",

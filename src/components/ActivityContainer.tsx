@@ -5,6 +5,7 @@ import { fetchActivities } from "@/api/activities";
 import Item from "@/components/Item";
 import LocationFilter from "@/components/LocationFilter";
 import { BsChevronLeft } from "react-icons/bs";
+import LoadingSkeleton from "./LoadingSkeleton";
 
 interface ActivityContainerProps {
   category: string;
@@ -16,9 +17,11 @@ const ActivityContainer = ({ category }: ActivityContainerProps) => {
   const [filteredActivities, setFilteredActivities] = useState<ActivityType[]>(
     []
   );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Fetch activities based on the selected category when the component mounts or when the category changes
   useEffect(() => {
+    setIsLoading(true);
     fetchActivities(category)
       .then((data) => {
         setActivities(data);
@@ -27,6 +30,9 @@ const ActivityContainer = ({ category }: ActivityContainerProps) => {
       .catch((error) => {
         console.error("Error fetching activities:", error);
         // Handle error if needed
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [category]);
 
@@ -104,7 +110,10 @@ const ActivityContainer = ({ category }: ActivityContainerProps) => {
 
         {/* Activity items */}
         <div className="sm:w-8/12 lg:w-6/12 lg:h-[480px] lg:overflow-scroll grid grid-cols-1">
-          {filteredActivities.length === 0 ? (
+          {isLoading ? (
+            // Display the skeleton component while fetching data
+            <LoadingSkeleton />
+          ) : filteredActivities.length === 0 ? (
             // Display a message if no activities are available for the selected category and filters
             <p className="text-2xl font-semibold">
               Oups il semble qu'aucune activité de {category.toLowerCase()} ne

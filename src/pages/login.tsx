@@ -13,6 +13,7 @@ const Login = (props: Props) => {
   // State variables for login form inputs
   const [loginEmail, setLoginEmail] = useState<string>("");
   const [loginPassword, setLoginPassword] = useState<string>("");
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   // Get access to Redux store dispatch function
   const dispatch = useDispatch();
@@ -22,6 +23,8 @@ const Login = (props: Props) => {
 
   // Function to handle user login
   const handleLogin = () => {
+    // Reset the login error before making a new login attempt
+    setLoginError(null);
     // Call the login function from the API to send user credentials and get a response
     login(loginEmail, loginPassword)
       .then((data) => {
@@ -40,6 +43,8 @@ const Login = (props: Props) => {
       .catch((error) => {
         // Handle login error (e.g., display error message)
         console.error("Error occurred during login:", error);
+        // Set the login error message if login fails
+        setLoginError("Adresse mail ou mot de passe incorrect");
       });
   };
 
@@ -74,6 +79,10 @@ const Login = (props: Props) => {
 
           {/* Login button */}
           <Button text="Me connecter" onClick={() => handleLogin()} />
+
+          {loginError && ( // Conditionally render the login error message if it exists
+            <p className="text-red-500 mt-2 text-center">{loginError}</p>
+          )}
 
           {/* Link to sign up page */}
           <p className="mt-3">

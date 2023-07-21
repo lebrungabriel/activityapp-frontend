@@ -16,6 +16,19 @@ const SignUp = (props: Props) => {
 
   // Function to handle user signup
   const handleSignUp = () => {
+    // Perform client-side form validation
+    if (!firstName || !lastName || !signUpEmail || !signUpPassword) {
+      setError("Veuillez remplir tous les champs svp.");
+      return;
+    }
+
+    // Add email format validation (optional)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(signUpEmail)) {
+      setError("Veuillez renseigner une adresse mail correct svp");
+      return;
+    }
+
     // Create an object with signup data to be sent to the server
     const signUpData = {
       firstName: firstName,
@@ -99,6 +112,9 @@ const SignUp = (props: Props) => {
 
           {/* Signup button */}
           <Button text="M'inscrire" onClick={() => handleSignUp()} />
+
+          {/* Display the error message if there is any */}
+          {error && <p className="text-red-500 mt-2">{error}</p>}
 
           {/* Link to login page */}
           <p className="mt-3">

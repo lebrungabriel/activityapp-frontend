@@ -55,8 +55,8 @@ function Input(props: Props) {
           className="absolute bottom-3 right-3 text-gray-500"
           onClick={togglePasswordVisibility}
         >
-          {/* Display eye icon when password is hidden and eye-off icon when password is visible */}
-          {showPassword ? <FiEyeOff /> : <FiEye />}
+          {/* Display eye-off icon when password is hidden and eye icon when password is visible */}
+          {showPassword ? <FiEye /> : <FiEyeOff />}
         </button>
       )}
     </div>
